@@ -1,54 +1,91 @@
+"use client";
+
 import NextLink from "next/link";
 import { Link } from "@nextui-org/link";
 import { Snippet } from "@nextui-org/snippet";
 import { Code } from "@nextui-org/code"
 import { button as buttonStyles } from "@nextui-org/theme";
 import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
 import { GithubIcon } from "@/components/icons";
+import {useDisclosure, Card, CardHeader, CardBody, CardFooter, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter} from "@nextui-org/react";
+import {Button, Image, Divider} from "@nextui-org/react";
 
-export default function Home() {
+import { FaGithub, FaCode } from 'react-icons/fa';
+import { IoDocumentText} from 'react-icons/io5';
+import { HiMail } from "react-icons/hi";
+import { lazy } from "react";
+
+const ContactMeHref = lazy(() => import("@/components/contactme"));
+
+export default function Home() 
+{
+	const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
+	const handleButtonClick = (url : string) => 
+	{
+		window.location.href = url;
+	};
+
+	let email = isOpen ? 
+	(
+		<ContactMeHref />
+	) : null;
+
 	return (
-		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-			<div className="inline-block max-w-lg text-center justify-center">
-				<h1 className={title()}>Make&nbsp;</h1>
-				<h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>
-				<br />
-				<h1 className={title()}>
-					websites regardless of your design experience.
-				</h1>
-				<h2 className={subtitle({ class: "mt-4" })}>
-					Beautiful, fast and modern React UI library.
-				</h2>
-			</div>
-
-			<div className="flex gap-3">
-				<Link
-					isExternal
-					as={NextLink}
-					href={siteConfig.links.docs}
-					className={buttonStyles({ color: "primary", radius: "full", variant: "shadow" })}
-				>
-					Documentation
-				</Link>
-				<Link
-					isExternal
-					as={NextLink}
-					className={buttonStyles({ variant: "bordered", radius: "full" })}
-					href={siteConfig.links.github}
-				>
-					<GithubIcon size={20} />
-					GitHub
-				</Link>
-			</div>
-
-			<div className="mt-8">
-				<Snippet hideSymbol hideCopyButton variant="bordered">
-					<span>
-						Get started by editing <Code color="primary">app/page.tsx</Code>
-					</span>
-				</Snippet>
-			</div>
-		</section>
+	<>
+		<div className="flex items-center justify-center h-screen">
+			<Card className="w-1/2 p-4 mx-auto text-center border xl:w-1/4 lg:w-1/3">
+				<CardHeader className="flex gap-3">
+					<Image
+					alt="Github profile"
+					height={40}
+					radius="sm"
+					src="https://avatars.githubusercontent.com/u/122663606"
+					width={40}
+					/>
+					<div className="flex flex-col">
+					<p className="text-md">pawlick.dev</p>
+					<p className="text-small text-default-500">Still in development</p>
+					</div>
+				</CardHeader>
+				<Divider/>
+				<CardBody>
+					<Button color="primary" radius="sm" variant="shadow" startContent={<FaCode />} as={Link} href='https://blog.pawlick.dev' className="m-1.5 xl:h-12 xl:text-lg">
+						Blog
+					</Button>
+					<Button color="primary" radius="sm" variant="shadow" startContent={<IoDocumentText/>} as={Link} href='https://docs.pawlick.dev' className="m-1.5 xl:h-12 xl:text-lg">
+						Documentation
+					</Button>
+					<Button color="primary" radius="sm" variant="shadow" startContent={<FaGithub/>} as={Link} href='https://github.com/lpawlick' className="m-1.5 xl:h-12 xl:text-lg">
+						Github
+					</Button>
+					<Button onPress={onOpen} as={Link} color="primary" radius="sm" variant="shadow" startContent={<HiMail/>} className="m-1.5 xl:h-12 xl:text-lg">
+						Contact
+					</Button>
+					<Modal 
+					isOpen={isOpen} 
+					placement="auto"
+					onOpenChange={onOpenChange} 
+					>
+						<ModalContent>
+						{(onClose) => (
+							<>
+							<ModalHeader className="flex flex-col gap-1">Email</ModalHeader>
+							<ModalBody>
+								{email}
+							</ModalBody>
+							<ModalFooter>
+								<Button color="danger" variant="light" onPress={onClose}>
+								Close
+								</Button>
+							</ModalFooter>
+							</>
+						)}
+						</ModalContent>
+					</Modal>
+				</CardBody>
+			</Card>
+		</div>
+	</>
 	);
 }
