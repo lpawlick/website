@@ -1,14 +1,28 @@
-import * as React from "react";
+import React from "react";
+import CryptoJS from "crypto-js";
 
-export interface IContactMeHrefProps {}
+const secretKey = "$@!v4pqEXV4xkaxW9yGn$U5xDCZ!Q5BxZ$tVP!2!H6G3j9dm&3B@XQ4y2iiv56GD"; // Replace this with your secret key
 
-const email = process.env.CONTACT_EMAIL;
-
-export const ContactMeHref: React.FC<IContactMeHrefProps> = props => 
+export const ContactMeHref = () => 
 {
+  // Function to encrypt the email
+  const encryptData = (data : string) => {
+    return CryptoJS.AES.encrypt(data, secretKey).toString();
+  };
+
+  // Function to decrypt the email
+  const decryptData = (encryptedData : string) => 
+  {
+    const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+    return bytes.toString(CryptoJS.enc.Utf8);
+  };
+
+  // Encrypt the email
+  const encryptedEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "U2FsdGVkX18AfX3T8GT1VaKJEJH6TPVUwtDGgpESMZVPBuMNgBxlHII2IXlAWMNaKcrCcMUM3RNDaoChwYB67XYs9TYL6AcdnJnQgFri4eY82wsHiJS+BlTYrY/pCGBGcrZtWx9bx3JteUt89inFKC5tWs17z4rWLeaeM3Sc0M8XNbwAQe3OE7k1o4CEZdl8";
+
   return (
     <div>
-        {email}
+      {decryptData(encryptedEmail)}
     </div>
   );
 };
