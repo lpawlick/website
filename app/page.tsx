@@ -45,9 +45,9 @@ export default function Home()
 		>
 			<VolumetricShader />
 			{process.env.NODE_ENV === 'development' && <Stats />}
-			<Html fullscreen={true}>
+			<Html fullscreen={true} zIndexRange={[50, 0]}>
 				<div className="flex items-center justify-center h-screen">
-				<Card className="w-11/12 p-4 mx-auto text-center border sm:w-9/12 md:w-1/2 lg:w-1/3 xl:w-4/12 2xl:w-1/4">
+				<Card className="z-0 w-11/12 p-4 mx-auto text-center border sm:w-9/12 md:w-1/2 lg:w-1/3 xl:w-4/12 2xl:w-1/4">
 					<CardHeader className="flex gap-3">
 						<Image
 						alt="Github profile"
@@ -80,7 +80,7 @@ export default function Home()
 							placement="auto"
 							onOpenChange={onOpenChange} 
 						>
-							<ModalContent>
+							<ModalContent className="z-50">
 							{(onClose) => (
 								<>
 								<ModalHeader className="flex flex-col gap-1">Email</ModalHeader>
