@@ -25,7 +25,7 @@ export const ContactMeHref = () =>
   return (
     <div className="flex flex-row flex-wrap">
     {encryptedEmail !== "U2FsdGVkX18AfX3T8GT1VaKJEJH6TPVUwtDGgpESMZVPBuMNgBxlHII2IXlAWMNaKcrCcMUM3RNDaoChwYB67XYs9TYL6AcdnJnQgFri4eY82wsHiJS+BlTYrY/pCGBGcrZtWx9bx3JteUt89inFKC5tWs17z4rWLeaeM3Sc0M8XNbwAQe3OE7k1o4CEZdl8" ? (
-      <Link isExternal showAnchorIcon>
+      <Link isExternal showAnchorIcon href="#">
         <Obfuscate email={decryptData(encryptedEmail)} />
       </Link>
     ) : (
