@@ -34,7 +34,7 @@ export default function Home()
 	return (
 	<>
 		<div className="flex items-center justify-center h-screen">
-			<Card className="w-1/2 p-4 mx-auto text-center border xl:w-1/4 lg:w-1/3">
+			<Card className="w-11/12 p-4 mx-auto text-center border sm:w-9/12 md:w-1/2 lg:w-1/3 xl:w-4/12 2xl:w-1/4">
 				<CardHeader className="flex gap-3">
 					<Image
 					alt="Github profile"
