@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 		{ media: "(prefers-color-scheme: dark)", color: "black" },
 	],
 	icons: {
-		icon: "/favicon.ico",
-		shortcut: "/favicon-16x16.png",
-		apple: "/apple-touch-icon.png",
+		icon: "https://avatars.githubusercontent.com/u/122663606",
+		shortcut: "https://avatars.githubusercontent.com/u/122663606",
+		apple: "https://avatars.githubusercontent.com/u/122663606",
 	},
 };
 
@@ -33,7 +33,7 @@ export default function RootLayout({
 			<head />
 			<body
 				className={clsx(
-					"min-h-screen bg-background font-sans antialiased",
+					"min-h-screen bg-background font-sans antialiased overflow-hidden",
 					fontSans.variable
 				)}
 			>
