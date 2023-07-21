@@ -48,17 +48,10 @@ export default function Home()
 			<Html fullscreen={true} zIndexRange={[50, 0]}>
 				<div className="flex items-center justify-center h-screen">
 				<Card className="z-0 w-11/12 p-4 mx-auto text-center border sm:w-9/12 md:w-1/2 lg:w-1/3 xl:w-4/12 2xl:w-1/4" isBlurred>
-					<CardHeader className="flex gap-3">
-						<Image
-						alt="Github profile"
-						height={40}
-						radius="sm"
-						src="https://avatars.githubusercontent.com/u/122663606"
-						width={40}
-						/>
-						<div className="flex flex-col">
+					<CardHeader className="flex justify-center gap-3">
+						<div className="flex flex-col text-center">
 						<p className="text-md">pawlick.dev</p>
-						<p className="text-small text-default-500">Still in development</p>
+						<p className="text-small text-default-500">Reaching for the Stars 🌌</p>
 						</div>
 					</CardHeader>
 					<Divider/>
