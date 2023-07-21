@@ -47,7 +47,7 @@ export default function Home()
 			{process.env.NODE_ENV === 'development' && <Stats />}
 			<Html fullscreen={true} zIndexRange={[50, 0]}>
 				<div className="flex items-center justify-center h-screen">
-				<Card className="z-0 w-11/12 p-4 mx-auto text-center border sm:w-9/12 md:w-1/2 lg:w-1/3 xl:w-4/12 2xl:w-1/4">
+				<Card className="z-0 w-11/12 p-4 mx-auto text-center border sm:w-9/12 md:w-1/2 lg:w-1/3 xl:w-4/12 2xl:w-1/4" isBlurred>
 					<CardHeader className="flex gap-3">
 						<Image
 						alt="Github profile"
@@ -63,22 +63,23 @@ export default function Home()
 					</CardHeader>
 					<Divider/>
 					<CardBody>
-						<Button color="primary" radius="sm" variant="shadow" startContent={<FaCode />} as={Link as any} href='https://blog.pawlick.dev' className="m-1.5 xl:h-12 xl:text-lg">
+						<Button color="primary" radius="sm" variant="shadow" startContent={<FaCode />} as={Link as any} href='https://blog.pawlick.dev' className="m-1.5 xl:h-12 xl:text-lg transition-transform duration-200 transform-gpu hover:scale-110">
 							Blog
 						</Button>
-						<Button color="primary" radius="sm" variant="shadow" startContent={<IoDocumentText/>} as={Link as any} href='https://docs.pawlick.dev' className="m-1.5 xl:h-12 xl:text-lg">
+						<Button color="primary" radius="sm" variant="shadow" startContent={<IoDocumentText/>} as={Link as any} href='https://docs.pawlick.dev' className="m-1.5 xl:h-12 xl:text-lg transition-transform duration-200 transform-gpu hover:scale-110">
 							Documentation
 						</Button>
-						<Button color="primary" radius="sm" variant="shadow" startContent={<FaGithub/>} as={Link as any} href='https://github.com/lpawlick' className="m-1.5 xl:h-12 xl:text-lg">
+						<Button color="primary" radius="sm" variant="shadow" startContent={<FaGithub/>} as={Link as any} href='https://github.com/lpawlick' className="m-1.5 xl:h-12 xl:text-lg transition-transform duration-200 transform-gpu hover:scale-110">
 							Github
 						</Button>
-						<Button onPress={onOpen} as={Link as any} color="primary" radius="sm" variant="shadow" startContent={<HiMail/>} className="m-1.5 xl:h-12 xl:text-lg">
+						<Button onPress={onOpen} as={Link as any} color="primary" radius="sm" variant="shadow" startContent={<HiMail/>} className="m-1.5 xl:h-12 xl:text-lg transition-transform duration-200 transform-gpu hover:scale-110">
 							Contact
 						</Button>
 						<Modal 
 							isOpen={isOpen} 
 							placement="auto"
-							onOpenChange={onOpenChange} 
+							onOpenChange={onOpenChange}
+							backdrop="blur"
 						>
 							<ModalContent className="z-50">
 							{(onClose) => (
