@@ -66,7 +66,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
 
     v = mix(vec3(length(v)), v, saturation);
     vec4 C = vec4(v * 0.01, 1.0);
-    C.rgb = pow(C.rgb, vec3(0.40, 0.39, 0.36));
+    C.rgb = pow(C.rgb, vec3(0.41, 0.39, 0.39));
     vec4 L = C;
 
     C.rgb = mix(L.rgb, vec3(SCurve(C.r), SCurve(C.g) * 0.9, SCurve(C.b) * 0.6), 1.0);
