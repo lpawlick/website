@@ -14,7 +14,7 @@ const int volsteps = 20;
 const float stepsize = 0.1;
 const float zoom = 1.000;
 const float tile = 0.4;
-const float speed = -0.0005;
+const float speed = -0.00025;
 const float brightness = 0.0025;
 const float darkmatter = 0.6;
 const float distfading = 0.8;
@@ -96,19 +96,38 @@ class VolumetricMaterial extends THREE.ShaderMaterial {
 extend({ VolumetricMaterial });
 
 const VolumetricShader = () => {
-    const materialRef = useRef<VolumetricMaterial>();
+    const materialRef = useRef<THREE.ShaderMaterial>();
     const { size, viewport } = useThree();
     const aspect = size.width / viewport.width;
 
+    // Add state to store the smoothed mouse position
+    const [smoothedMouse, setSmoothedMouse] = React.useState(new THREE.Vector2());
+
     // Update the mouse position uniform based on the mouse move event
-    const handleMouseMove = React.useCallback((event: MouseEvent) => 
-    {
-        const { clientX, clientY } = event;
-        const mousePosition = new THREE.Vector2(clientX, clientY);
-        const mouseX = mousePosition.x / viewport.width;
-        const mouseY = mousePosition.y / viewport.height;
-        uniforms.iMouse.value.set(mouseX, mouseY);
-    }, [viewport.width, viewport.height]);
+    const handleMouseMove = React.useCallback(
+        (event: MouseEvent) => {
+            const { clientX, clientY } = event;
+
+            // Calculate the target mouse position
+            const targetMouse = new THREE.Vector2(clientX, clientY);
+            const targetMouseX = targetMouse.x / viewport.width;
+            const targetMouseY = targetMouse.y / viewport.height;
+
+            // Calculate the smoothed mouse position with some easing
+            const smoothingFactor = 0.1; // Adjust this value to control the smoothness (0.0 - 1.0)
+            const deltaX = targetMouseX - smoothedMouse.x;
+            const deltaY = targetMouseY - smoothedMouse.y;
+            const smoothedMouseX = smoothedMouse.x + deltaX * smoothingFactor;
+            const smoothedMouseY = smoothedMouse.y + deltaY * smoothingFactor;
+
+            // Update the smoothed mouse position
+            setSmoothedMouse(new THREE.Vector2(smoothedMouseX, smoothedMouseY));
+
+            // Set the uniform to the smoothed mouse position
+            uniforms.iMouse.value.set(smoothedMouseX, smoothedMouseY);
+        },
+        [viewport.width, viewport.height, smoothedMouse]
+    );
 
     React.useEffect(() => {
         window.addEventListener('mousemove', handleMouseMove);
