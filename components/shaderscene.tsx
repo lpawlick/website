@@ -25,8 +25,8 @@ float SCurve(float value) {
 }
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
-    float a1 = (0.5 + iMouse.x / iResolution.x * 2.0) / 500.0;
-    float a2 = (0.8 - iMouse.y / iResolution.y * 2.0) / 500.0;
+    float a1 = (0.5 + iMouse.x / iResolution.x * 2.0) / 250.0;
+    float a2 = (0.8 - iMouse.y / iResolution.y * 2.0) / 250.0;
     mat2 rot1 = mat2(cos(a1), sin(a1), -sin(a1), cos(a1));
     mat2 rot2 = mat2(cos(a2), sin(a2), -sin(a2), cos(a2));
 
@@ -42,7 +42,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     from.xz *= rot1;
     from.xy *= rot2;
 
-    float s = 0.1;
+    float s = 0.2;
     float fade = 1.0;
     vec3 v = vec3(0.0);
     for (int r = 0; r < volsteps; r++) {
@@ -105,7 +105,8 @@ const VolumetricShader = () => {
 
     // Update the mouse position uniform based on the mouse move event
     const handleMouseMove = React.useCallback(
-        (event: MouseEvent) => {
+        (event: MouseEvent) => 
+        {
             const { clientX, clientY } = event;
 
             // Calculate the target mouse position
@@ -129,13 +130,16 @@ const VolumetricShader = () => {
         [viewport.width, viewport.height, smoothedMouse]
     );
 
-    React.useEffect(() => {
+    React.useEffect(() => 
+    {
         window.addEventListener('mousemove', handleMouseMove);
         return () => window.removeEventListener('mousemove', handleMouseMove);
     }, [handleMouseMove]);
 
-    useFrame(({ clock }) => {
-        if (materialRef.current) {
+    useFrame(({ clock }) => 
+    {
+        if (materialRef.current) 
+        {
             const material = materialRef.current;
             material.uniforms.iTime.value = clock.getElapsedTime();
             material.uniforms.iResolution.value.set(viewport.width * aspect, viewport.height * aspect);
